@@ -5,6 +5,7 @@ import User from '../models/User.js';
 import JoiningRequest from '../models/JoiningRequest.js';
 import Employee from '../models/Employee.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
+import { uploadJoiningDocuments, uploadDocumentAttachment } from '../middleware/uploadMiddleware.js';
 import { sendOfferEmail, sendJoiningDetailsEmail, sendReviewEmail, sendWelcomeEmailToAll } from '../services/emailService.js';
 
 const router = express.Router();
@@ -44,6 +45,83 @@ router.post('/candidates', protect, admin, async (req, res) => {
   }
 });
 
+// @route   POST /api/admin/candidates/bulk
+// @desc    Create multiple candidates from Excel data
+// @access  Private/Admin
+router.post('/candidates/bulk', protect, admin, async (req, res) => {
+  try {
+    const candidates = req.body;
+
+    if (!Array.isArray(candidates) || candidates.length === 0) {
+      return res.status(400).json({ message: 'No candidates provided' });
+    }
+
+    const results = [];
+
+    for (const candidateData of candidates) {
+      try {
+        const { fullName, email, phone, practice, position, rowIndex } = candidateData;
+
+        // Validate input
+        if (!fullName || !email || !phone || !practice || !position) {
+          results.push({
+            success: false,
+            rowIndex,
+            fullName,
+            email,
+            error: 'Missing required fields'
+          });
+          continue;
+        }
+
+        // Check if candidate already exists
+        const candidateExists = await Candidate.findOne({ email });
+        if (candidateExists) {
+          results.push({
+            success: false,
+            rowIndex,
+            fullName,
+            email,
+            error: 'Candidate already exists'
+          });
+          continue;
+        }
+
+        // Create candidate
+        const newCandidate = await Candidate.create({
+          fullName,
+          email,
+          phone,
+          practice,
+          position,
+          createdBy: req.user._id,
+        });
+
+        results.push({
+          success: true,
+          rowIndex,
+          fullName,
+          email,
+          candidateId: newCandidate._id
+        });
+      } catch (err) {
+        results.push({
+          success: false,
+          rowIndex: candidateData.rowIndex,
+          fullName: candidateData.fullName,
+          email: candidateData.email,
+          error: err.message || 'Error creating candidate'
+        });
+      }
+    }
+
+    res.json(results);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 // @route   GET /api/admin/candidates
 // @desc    Get all candidates
 // @access  Private/Admin
@@ -60,7 +138,7 @@ router.get('/candidates', protect, admin, async (req, res) => {
 // @route   POST /api/admin/candidates/:id/send-offer
 // @desc    Send offer letter to candidate
 // @access  Private/Admin
-router.post('/candidates/:id/send-offer', protect, admin, async (req, res) => {
+router.post('/candidates/:id/send-offer', protect, admin, uploadDocumentAttachment, async (req, res) => {
   try {
     const candidate = await Candidate.findById(req.params.id);
 
@@ -83,10 +161,13 @@ router.post('/candidates/:id/send-offer', protect, admin, async (req, res) => {
     candidate.offerSentDate = new Date();
     await candidate.save();
 
+    // Get attachment path if file was uploaded
+    const attachmentPath = req.file ? req.file.path : null;
+
     // Send email asynchronously
     setImmediate(async () => {
       try {
-        await sendOfferEmail(candidate, offerToken);
+        await sendOfferEmail(candidate, offerToken, attachmentPath);
       } catch (emailError) {
         console.error('Error sending offer email:', emailError);
       }
@@ -102,7 +183,7 @@ router.post('/candidates/:id/send-offer', protect, admin, async (req, res) => {
 // @route   POST /api/admin/candidates/:id/send-joining-details
 // @desc    Send joining details and credentials to candidate
 // @access  Private/Admin
-router.post('/candidates/:id/send-joining-details', protect, admin, async (req, res) => {
+router.post('/candidates/:id/send-joining-details', protect, admin, uploadDocumentAttachment, async (req, res) => {
   try {
     const candidate = await Candidate.findById(req.params.id);
 
@@ -153,10 +234,13 @@ router.post('/candidates/:id/send-joining-details', protect, admin, async (req, 
     candidate.joiningDetailsSentDate = new Date();
     await candidate.save();
 
+    // Get attachment path if file was uploaded
+    const attachmentPath = req.file ? req.file.path : null;
+
     // Send email asynchronously
     setImmediate(async () => {
       try {
-        await sendJoiningDetailsEmail(candidate, tempPassword);
+        await sendJoiningDetailsEmail(candidate, tempPassword, attachmentPath);
       } catch (emailError) {
         console.error('Error sending joining details email:', emailError);
       }
@@ -219,8 +303,8 @@ router.post('/joining-requests/:id/review', protect, admin, async (req, res) => 
       return res.status(404).json({ message: 'Joining request not found' });
     }
 
-    if (joiningRequest.status !== 'submitted') {
-      return res.status(400).json({ message: 'Can only review submitted requests' });
+    if (joiningRequest.status !== 'submitted' && joiningRequest.status !== 'pending' && joiningRequest.status !== 'approved' && joiningRequest.status !== 'rejected') {
+      return res.status(400).json({ message: 'Invalid joining request status' });
     }
 
     // Update joining request
@@ -250,6 +334,12 @@ router.post('/joining-requests/:id/review', protect, admin, async (req, res) => 
       user.employeeId = employeeId;
       await user.save();
 
+      // Use present address if available, otherwise use old address field
+      const address = joiningRequest.presentAddress || joiningRequest.address;
+      const city = joiningRequest.presentCity || joiningRequest.city;
+      const state = joiningRequest.presentState || joiningRequest.state;
+      const pincode = joiningRequest.presentPincode || joiningRequest.pincode;
+
       // Create employee record
       const employee = await Employee.create({
         employeeId,
@@ -262,12 +352,19 @@ router.post('/joining-requests/:id/review', protect, admin, async (req, res) => 
         practice: joiningRequest.practice,
         position: joiningRequest.position,
         dateOfBirth: joiningRequest.dateOfBirth,
-        address: joiningRequest.address,
-        city: joiningRequest.city,
-        state: joiningRequest.state,
-        pincode: joiningRequest.pincode,
+        address: address,
+        city: city,
+        state: state,
+        pincode: pincode,
         profilePhoto: joiningRequest.profilePhoto,
         selfDescription: joiningRequest.selfDescription,
+        tenthGrade: joiningRequest.tenthGrade,
+        tenthDocument: joiningRequest.tenthDocument,
+        interGrade: joiningRequest.interGrade,
+        interDocument: joiningRequest.interDocument,
+        btechGrade: joiningRequest.btechGrade,
+        btechDocument: joiningRequest.btechDocument,
+        experience: joiningRequest.experience ? joiningRequest.experience.length : 0,
       });
 
       // Send welcome email to all active employees (except new joiner)
@@ -291,6 +388,71 @@ router.post('/joining-requests/:id/review', protect, admin, async (req, res) => 
     });
 
     res.json({ message: `Joining request ${status} successfully`, joiningRequest });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// @route   PUT /api/admin/joining-requests/:id/edit-details
+// @desc    Edit joining request details with optional document uploads
+// @access  Private/Admin
+router.put('/joining-requests/:id/edit-details', protect, admin, uploadJoiningDocuments, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const joiningRequest = await JoiningRequest.findById(id);
+
+    if (!joiningRequest) {
+      return res.status(404).json({ message: 'Joining request not found' });
+    }
+
+    // Allowed fields to edit
+    const editableFields = [
+      'dateOfBirth',
+      'address',
+      'city',
+      'state',
+      'pincode',
+      'emergencyContactName',
+      'emergencyContactPhone',
+      'emergencyContactRelation',
+      'selfDescription',
+      'bankAccountNumber',
+      'bankName',
+      'bankIFSC',
+      'tenthGrade',
+      'interGrade',
+      'btechGrade',
+      'experience',
+      'uan'
+    ];
+
+    // Update only allowed fields
+    editableFields.forEach(field => {
+      if (req.body[field] !== undefined) {
+        joiningRequest[field] = req.body[field];
+      }
+    });
+
+    // Handle file uploads
+    const documentFields = [
+      'tenthDocument',
+      'interDocument',
+      'btechDocument',
+      'experienceCertificate',
+      'idProof',
+      'addressProof'
+    ];
+
+    documentFields.forEach(field => {
+      if (req.files && req.files[field]) {
+        joiningRequest[field] = req.files[field][0].filename;
+      }
+    });
+
+    await joiningRequest.save();
+
+    res.json({ message: 'Joining details updated successfully', joiningRequest });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Server error' });

@@ -46,11 +46,19 @@ const upload = multer({
 });
 
 // Upload fields for joining form
+// Dynamic upload fields for experience certificates
+const experienceFields = Array.from({ length: 10 }).map((_, i) => ({ name: `experienceCertificate_${i}`, maxCount: 1 }));
 export const uploadJoiningDocuments = upload.fields([
   { name: 'profilePhoto', maxCount: 1 },
-  { name: 'educationalCertificates', maxCount: 5 },
   { name: 'idProof', maxCount: 1 },
   { name: 'addressProof', maxCount: 1 },
+  { name: 'tenthDocument', maxCount: 1 },
+  { name: 'interDocument', maxCount: 1 },
+  { name: 'btechDocument', maxCount: 1 },
+  ...experienceFields,
 ]);
+
+// Upload field for offer/joining documents
+export const uploadDocumentAttachment = upload.single('document');
 
 export default upload;

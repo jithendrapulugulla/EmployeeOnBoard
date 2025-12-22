@@ -5,9 +5,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Raleway', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f5f5f5;
@@ -25,6 +23,7 @@ body {
   padding: 24px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  border-left: 4px solid #124B84;
 }
 
 .btn {
@@ -33,35 +32,40 @@ body {
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   transition: all 0.3s;
+  font-family: 'Raleway', sans-serif;
 }
 
 .btn-primary {
-  background-color: #4CAF50;
+  background-color: #124B84;
   color: white;
 }
 
 .btn-primary:hover {
-  background-color: #45a049;
+  background-color: #0d3a61;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(18, 75, 132, 0.3);
 }
 
 .btn-secondary {
-  background-color: #2196F3;
+  background-color: #C74627;
   color: white;
 }
 
 .btn-secondary:hover {
-  background-color: #0b7dda;
+  background-color: #a83620;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(199, 70, 39, 0.3);
 }
 
 .btn-danger {
-  background-color: #f44336;
+  background-color: #C74627;
   color: white;
 }
 
 .btn-danger:hover {
-  background-color: #da190b;
+  background-color: #a83620;
 }
 
 .form-group {
@@ -71,8 +75,9 @@ body {
 .form-group label {
   display: block;
   margin-bottom: 8px;
-  font-weight: 500;
-  color: #333;
+  font-weight: 600;
+  color: #124B84;
+  font-family: 'Raleway', sans-serif;
 }
 
 .form-group input,
@@ -80,16 +85,18 @@ body {
 .form-group select {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 2px solid #CED6E0;
   border-radius: 4px;
   font-size: 14px;
+  font-family: 'Raleway', sans-serif;
 }
 
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #4CAF50;
+  border-color: #124B84;
+  box-shadow: 0 0 0 3px rgba(18, 75, 132, 0.1);
 }
 
 .form-group textarea {
@@ -98,15 +105,17 @@ body {
 }
 
 .error {
-  color: #f44336;
+  color: #C74627;
   font-size: 14px;
   margin-top: 4px;
+  font-weight: 500;
 }
 
 .success {
-  color: #4CAF50;
+  color: #124B84;
   font-size: 14px;
   margin-top: 4px;
+  font-weight: 500;
 }
 
 .table {
@@ -120,11 +129,13 @@ body {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  font-family: 'Raleway', sans-serif;
 }
 
 .table th {
-  background-color: #f5f5f5;
-  font-weight: 600;
+  background-color: #CED6E0;
+  font-weight: 700;
+  color: #124B84;
 }
 
 .table tr:hover {
@@ -136,7 +147,8 @@ body {
   padding: 4px 12px;
   border-radius: 12px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  font-family: 'Raleway', sans-serif;
 }
 
 .badge-success {
@@ -162,14 +174,17 @@ body {
 .loading {
   text-align: center;
   padding: 40px;
-  color: #666;
+  color: #124B84;
+  font-weight: 600;
+  font-family: 'Raleway', sans-serif;
 }
 
 .navbar {
-  background-color: #333;
+  background-color: #124B84;
   color: white;
   padding: 16px 0;
   margin-bottom: 30px;
+  box-shadow: 0 2px 8px rgba(18, 75, 132, 0.2);
 }
 
 .navbar .container {
@@ -180,25 +195,40 @@ body {
 
 .navbar h1 {
   font-size: 24px;
+  font-weight: 700;
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.navbar .logo {
+  height: 40px;
+  width: auto;
 }
 
 .navbar .user-info {
   display: flex;
   align-items: center;
   gap: 20px;
+  font-family: 'Raleway', sans-serif;
 }
 
 .navbar button {
-  background-color: transparent;
+  background-color: #C74627;
   color: white;
-  border: 1px solid white;
+  border: none;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: 600;
+  font-family: 'Raleway', sans-serif;
+  transition: all 0.3s;
 }
 
 .navbar button:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: #a83620;
+  transform: translateY(-2px);
 }
 
 .stats-grid {
@@ -209,20 +239,23 @@ body {
 }
 
 .stat-card {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #124B84 0%, #0d3a61 100%);
   color: white;
   padding: 24px;
   border-radius: 8px;
+  font-family: 'Raleway', sans-serif;
 }
 
 .stat-card h3 {
   font-size: 32px;
   margin-bottom: 8px;
+  font-weight: 700;
 }
 
 .stat-card p {
   font-size: 14px;
   opacity: 0.9;
+  font-weight: 500;
 }
 
 .modal-overlay {
@@ -246,10 +279,13 @@ body {
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
+  font-family: 'Raleway', sans-serif;
 }
 
 .modal h2 {
   margin-bottom: 20px;
+  color: #124B84;
+  font-weight: 700;
 }
 
 .modal-actions {

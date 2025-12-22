@@ -14,7 +14,7 @@ const createTransporter = () => {
 };
 
 // Send offer letter email
-export const sendOfferEmail = async (candidate, offerToken) => {
+export const sendOfferEmail = async (candidate, offerToken, attachmentPath = null) => {
   try {
     const transporter = createTransporter();
     
@@ -29,7 +29,9 @@ export const sendOfferEmail = async (candidate, offerToken) => {
           <h2 style="color: #333;">Congratulations ${candidate.fullName}!</h2>
           <p>We are pleased to offer you the position of <strong>${candidate.position}</strong> in the <strong>${candidate.practice}</strong> department.</p>
           
-          <p>Please click the button below to accept this offer:</p>
+          <p>Details of your offer will be sent separately by our HR team with complete compensation details and terms & conditions customized for your role.</p>
+          
+          <p>To accept this offer, please click the button below:</p>
           
           <div style="text-align: center; margin: 30px 0;">
             <a href="${acceptLink}" 
@@ -48,6 +50,16 @@ export const sendOfferEmail = async (candidate, offerToken) => {
       `,
     };
 
+    // Add attachment if provided
+    if (attachmentPath) {
+      mailOptions.attachments = [
+        {
+          filename: 'Offer_Letter.pdf',
+          path: attachmentPath,
+        }
+      ];
+    }
+
     await transporter.sendMail(mailOptions);
     console.log(`Offer email sent to ${candidate.email}`);
   } catch (error) {
@@ -57,7 +69,7 @@ export const sendOfferEmail = async (candidate, offerToken) => {
 };
 
 // Send joining details and credentials
-export const sendJoiningDetailsEmail = async (candidate, temporaryPassword) => {
+export const sendJoiningDetailsEmail = async (candidate, temporaryPassword, attachmentPath = null) => {
   try {
     const transporter = createTransporter();
     
@@ -77,12 +89,15 @@ export const sendJoiningDetailsEmail = async (candidate, temporaryPassword) => {
             <p><strong>Temporary Password:</strong> ${temporaryPassword}</p>
           </div>
           
+          <p>Complete joining details including joining date, time, and first-day agenda will be sent separately by our HR team.</p>
+          
           <p>Please login using the credentials above and complete your joining form by uploading the required documents:</p>
           <ul>
-            <li>Educational Certificates</li>
+            <li>Educational Certificates (10th, 12th/Inter, Degree)</li>
             <li>ID Proof (Aadhar/PAN/Passport)</li>
             <li>Address Proof</li>
             <li>Profile Photo</li>
+            <li>Experience Certificate (if applicable)</li>
           </ul>
           
           <div style="text-align: center; margin: 30px 0;">
@@ -99,6 +114,16 @@ export const sendJoiningDetailsEmail = async (candidate, temporaryPassword) => {
         </div>
       `,
     };
+
+    // Add attachment if provided
+    if (attachmentPath) {
+      mailOptions.attachments = [
+        {
+          filename: 'Joining_Details.pdf',
+          path: attachmentPath,
+        }
+      ];
+    }
 
     await transporter.sendMail(mailOptions);
     console.log(`Joining details email sent to ${candidate.email}`);

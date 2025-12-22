@@ -70,6 +70,32 @@ const employeeSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  // Education Grades
+  tenthGrade: {
+    type: String,
+  },
+  tenthDocument: {
+    type: String,
+  },
+  interGrade: {
+    type: String,
+  },
+  interDocument: {
+    type: String,
+  },
+  btechGrade: {
+    type: String,
+  },
+  btechDocument: {
+    type: String,
+  },
+  experience: {
+    type: Number,
+    default: 0,
+  },
+  experienceCertificate: {
+    type: String,
+  },
   joiningDate: {
     type: Date,
     default: Date.now,

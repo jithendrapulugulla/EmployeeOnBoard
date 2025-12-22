@@ -32,13 +32,33 @@ export const adminAPI = {
   // Candidates
   getCandidates: () => api.get('/admin/candidates'),
   createCandidate: (data) => api.post('/admin/candidates', data),
-  sendOffer: (id) => api.post(`/admin/candidates/${id}/send-offer`),
-  sendJoiningDetails: (id) => api.post(`/admin/candidates/${id}/send-joining-details`),
+  bulkCreateCandidates: (data) => api.post('/admin/candidates/bulk', data),
+  sendOffer: (id, document = null) => {
+    const formData = new FormData();
+    if (document) {
+      formData.append('document', document);
+    }
+    return api.post(`/admin/candidates/${id}/send-offer`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+  },
+  sendJoiningDetails: (id, document = null) => {
+    const formData = new FormData();
+    if (document) {
+      formData.append('document', document);
+    }
+    return api.post(`/admin/candidates/${id}/send-joining-details`, formData, {
+      headers: { 'Content-Type': 'multipart/form-data' }
+    });
+  },
   
   // Joining Requests
   getJoiningRequests: () => api.get('/admin/joining-requests'),
   getJoiningRequest: (id) => api.get(`/admin/joining-requests/${id}`),
   reviewJoiningRequest: (id, data) => api.post(`/admin/joining-requests/${id}/review`, data),
+  editJoiningDetails: (id, formData) => api.put(`/admin/joining-requests/${id}/edit-details`, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  }),
   
   // Employees
   getEmployees: () => api.get('/admin/employees'),

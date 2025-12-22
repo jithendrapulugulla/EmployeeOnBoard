@@ -32,12 +32,55 @@ const Login = () => {
   };
 
   return (
-    <div className="container" style={{ maxWidth: '400px', marginTop: '80px' }}>
+    <div className="container" style={{ maxWidth: '400px', marginTop: '40px' }}>
       <div className="card">
-        <h2 style={{ textAlign: 'center', marginBottom: '24px' }}>Login</h2>
+        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+          {/* WinWire Logo */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: '16px'
+          }}>
+            <div style={{
+              background: 'white',
+              padding: '10px 16px',
+              borderRadius: '6px',
+              display: 'inline-flex'
+            }}>
+              <img 
+                src="/images/image.png" 
+                alt="WinWire Logo"
+                style={{
+                  maxHeight: '50px',
+                  objectFit: 'contain'
+                }}
+              />
+            </div>
+          </div>
+          
+          <h2 style={{
+            color: '#124B84',
+            fontSize: '20px',
+            fontWeight: '700',
+            marginBottom: '8px',
+            fontFamily: "'Raleway', sans-serif"
+          }}>
+            Employee Onboarding
+          </h2>
+          <p style={{
+            color: '#666',
+            fontSize: '13px',
+            fontWeight: '500',
+            marginBottom: '0',
+            fontFamily: "'Raleway', sans-serif"
+          }}>
+            Official Portal | Secure Login
+          </p>
+        </div>
+
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label>Email</label>
+            <label>Email Address</label>
             <input
               type="email"
               value={email}
@@ -56,16 +99,41 @@ const Login = () => {
               placeholder="Enter your password"
             />
           </div>
-          {error && <div className="error">{error}</div>}
+          {error && <div className="error" style={{ fontSize: '13px' }}>⚠️ {error}</div>}
           <button 
             type="submit" 
             className="btn btn-primary" 
-            style={{ width: '100%', marginTop: '16px' }}
+            style={{ width: '100%', marginTop: '24px', padding: '12px', fontSize: '15px', fontWeight: '700' }}
             disabled={loading}
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
+
+        <div style={{
+          marginTop: '24px',
+          paddingTop: '20px',
+          borderTop: '1px solid #EEE',
+          textAlign: 'center'
+        }}>
+          <p style={{
+            fontSize: '11px',
+            color: '#999',
+            margin: '0',
+            fontFamily: "'Raleway', sans-serif",
+            fontWeight: '500'
+          }}>
+            © 2025 WinWire. All rights reserved.
+          </p>
+          <p style={{
+            fontSize: '11px',
+            color: '#BBB',
+            margin: '4px 0 0 0',
+            fontFamily: "'Raleway', sans-serif"
+          }}>
+            Secure Employee Management System
+          </p>
+        </div>
       </div>
     </div>
   );

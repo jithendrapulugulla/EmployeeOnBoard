@@ -10,20 +10,26 @@
     "seed": "node seed/seedAdmin.js",
     "cleanup": "node seed/cleanupData.js"
   },
-  "keywords": ["employee", "onboarding", "hr"],
+  "keywords": [
+    "employee",
+    "onboarding",
+    "hr"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2",
-    "mongoose": "^8.0.3",
     "bcryptjs": "^2.4.3",
-    "jsonwebtoken": "^9.0.2",
-    "nodemailer": "^6.9.7",
-    "multer": "^1.4.5-lts.1",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "express-validator": "^7.0.1",
-    "crypto": "^1.0.1"
+    "html-pdf-node": "^1.0.8",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3",
+    "multer": "^1.4.5-lts.1",
+    "nodemailer": "^6.9.7",
+    "pdfkit": "^0.17.2"
   },
   "devDependencies": {
     "nodemon": "^3.0.2"

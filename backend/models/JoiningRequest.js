@@ -30,6 +30,33 @@ const joiningRequestSchema = new mongoose.Schema({
   dateOfBirth: {
     type: Date,
   },
+  // Present Address
+  presentAddress: {
+    type: String,
+  },
+  presentCity: {
+    type: String,
+  },
+  presentState: {
+    type: String,
+  },
+  presentPincode: {
+    type: String,
+  },
+  // Permanent Address
+  permanentAddress: {
+    type: String,
+  },
+  permanentCity: {
+    type: String,
+  },
+  permanentState: {
+    type: String,
+  },
+  permanentPincode: {
+    type: String,
+  },
+  // Keep old address fields for backwards compatibility
   address: {
     type: String,
   },
@@ -69,15 +96,38 @@ const joiningRequestSchema = new mongoose.Schema({
     type: String,
   },
   // Bank Details
-  bankAccountNumber: {
+  bankDetails: {
+    accountNumber: { type: String },
+    bankName: { type: String },
+    ifsc: { type: String },
+    uan: { type: String }, // UAN moved here
+  },
+  // Education Grades
+  tenthGrade: {
     type: String,
   },
-  bankName: {
+  tenthDocument: {
     type: String,
   },
-  bankIFSC: {
+  interGrade: {
     type: String,
   },
+  interDocument: {
+    type: String,
+  },
+  btechGrade: {
+    type: String,
+  },
+  btechDocument: {
+    type: String,
+  },
+  experience: [
+    {
+      companyName: { type: String, required: true },
+      years: { type: Number, required: true },
+      certificate: { type: String, required: true },
+    }
+  ],
   // Status
   status: {
     type: String,

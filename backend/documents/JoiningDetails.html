@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Raleway', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 40px;
+            background-color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid #124B84;
+            padding: 40px;
+            background-color: #f9f9f9;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #124B84;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #124B84;
+            margin: 0;
+            font-size: 28px;
+        }
+        .header p {
+            color: #C74627;
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .content h2 {
+            color: #124B84;
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #CED6E0;
+            padding-bottom: 8px;
+        }
+        .content h3 {
+            color: #C74627;
+            font-size: 16px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        .content p {
+            margin: 12px 0;
+            text-align: justify;
+        }
+        .box {
+            background-color: #e3f2fd;
+            border-left: 4px solid #124B84;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .important {
+            background-color: #fff3cd;
+            border-left: 4px solid #C74627;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .checklist {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .checklist ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .checklist li {
+            margin: 8px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        table th {
+            background-color: #CED6E0;
+            color: #124B84;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+        }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>JOINING DETAILS & INSTRUCTIONS</h1>
+            <p>WinWire Employee Onboarding System</p>
+        </div>
+
+        <div class="content">
+            <p><strong>Welcome to WinWire!</strong></p>
+            <p>We are excited to have you join our team. This document contains important information about your joining process, first day, and company policies.</p>
+
+            <h2>Joining Date & Time</h2>
+            <div class="box">
+                <p><strong>Date:</strong> {{JOINING_DATE}}</p>
+                <p><strong>Time:</strong> {{JOINING_TIME}}</p>
+                <p><strong>Location:</strong> {{OFFICE_ADDRESS}}</p>
+                <p><strong>Reporting To:</strong> {{REPORTING_MANAGER}}</p>
+            </div>
+
+            <h2>Pre-Joining Requirements</h2>
+            <p>Before your first day, please ensure you have completed the following:</p>
+            <div class="checklist">
+                <ul>
+                    <li>✓ Log in to the Employee Portal and complete your joining form</li>
+                    <li>✓ Upload all required documents (as per the checklist below)</li>
+                    <li>✓ Change your temporary password to a secure password</li>
+                    <li>✓ Review company policies and guidelines</li>
+                    <li>✓ Confirm your availability and joining date</li>
+                </ul>
+            </div>
+
+            <h2>Required Documents to Upload</h2>
+            <p>Please ensure you have digital copies of the following documents ready:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Document</th>
+                        <th>Description</th>
+                        <th>Format</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>10th Grade Certificate</td>
+                        <td>Original 10th Standard/SSLC certificate</td>
+                        <td>PDF/Image</td>
+                    </tr>
+                    <tr>
+                        <td>12th/Intermediate Certificate</td>
+                        <td>Intermediate or Higher Secondary certificate</td>
+                        <td>PDF/Image</td>
+                    </tr>
+                    <tr>
+                        <td>Degree Certificate</td>
+                        <td>Bachelor's or Master's degree certificate</td>
+                        <td>PDF/Image</td>
+                    </tr>
+                    <tr>
+                        <td>ID Proof</td>
+                        <td>Aadhar Card / PAN Card / Passport / Driving License</td>
+                        <td>PDF/Image</td>
+                    </tr>
+                    <tr>
+                        <td>Address Proof</td>
+                        <td>Utility Bill / Lease Agreement / Property Tax Receipt (Recent)</td>
+                        <td>PDF/Image</td>
+                    </tr>
+                    <tr>
+                        <td>Profile Photo</td>
+                        <td>Recent professional/passport-sized photo</td>
+                        <td>JPG/PNG</td>
+                    </tr>
+                    <tr>
+                        <td>Experience Certificate (if applicable)</td>
+                        <td>Relieving letter or experience certificate from previous employer</td>
+                        <td>PDF/Image</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>First Day Agenda</h2>
+            <div class="box">
+                <h3>Morning Session (9:00 AM - 12:30 PM)</h3>
+                <ul>
+                    <li>Welcome & Office Orientation</li>
+                    <li>HR Introduction & Documentation</li>
+                    <li>IT Setup & System Access</li>
+                    <li>Department Introduction</li>
+                </ul>
+                <h3>Afternoon Session (1:30 PM - 5:00 PM)</h3>
+                <ul>
+                    <li>Team Lunch</li>
+                    <li>Role-specific Briefing</li>
+                    <li>System Training</li>
+                    <li>Facility Tour</li>
+                </ul>
+            </div>
+
+            <h2>What to Bring</h2>
+            <div class="important">
+                <ul>
+                    <li>Original educational certificates</li>
+                    <li>Original ID Proof (Aadhar/PAN/Passport)</li>
+                    <li>Address proof</li>
+                    <li>PAN card (for salary processing)</li>
+                    <li>Bank account details (passbook or cheque)</li>
+                    <li>Any other relevant documents as per recruitment process</li>
+                </ul>
+            </div>
+
+            <h2>Company Policies Overview</h2>
+            <h3>Working Hours</h3>
+            <p>Standard working hours: 9:00 AM - 6:00 PM, Monday to Friday. Lunch break: 1:00 PM - 2:00 PM</p>
+
+            <h3>Leave Policy</h3>
+            <ul>
+                <li>Casual Leave: {{CASUAL_LEAVE}} days per annum</li>
+                <li>Sick Leave: {{SICK_LEAVE}} days per annum</li>
+                <li>Paid Leaves: {{PAID_LEAVE}} days per annum</li>
+                <li>Maternity/Paternity Leave: As per statutory requirements</li>
+            </ul>
+
+            <h3>Code of Conduct</h3>
+            <ul>
+                <li>Maintain professional behavior and dress code</li>
+                <li>Respect company confidentiality and intellectual property</li>
+                <li>Comply with all company policies and procedures</li>
+                <li>Maintain a safe and healthy workplace</li>
+                <li>Treat all colleagues with respect and dignity</li>
+            </ul>
+
+            <h2>Employee Benefits</h2>
+            <div class="box">
+                <ul>
+                    <li>Health Insurance Coverage</li>
+                    <li>Accidental Disability Benefit</li>
+                    <li>Provident Fund Contribution</li>
+                    <li>Performance Bonuses</li>
+                    <li>Professional Development & Training</li>
+                    <li>Wellness Programs</li>
+                    <li>Team Building Activities</li>
+                </ul>
+            </div>
+
+            <h2>Contact Information</h2>
+            <p><strong>HR Department:</strong> {{HR_EMAIL}} | {{HR_PHONE}}</p>
+            <p><strong>Office Address:</strong> {{OFFICE_ADDRESS}}</p>
+            <p><strong>Employee Portal:</strong> {{PORTAL_URL}}</p>
+
+            <h2>Important Reminders</h2>
+            <div class="important">
+                <ul>
+                    <li>Please change your temporary password on first login</li>
+                    <li>Do not share your login credentials with anyone</li>
+                    <li>Submit all required documents within 15 days of joining</li>
+                    <li>Incomplete document submission may affect salary processing</li>
+                    <li>For any queries, contact HR immediately</li>
+                </ul>
+            </div>
+
+            <p style="margin-top: 30px;"><strong>Welcome aboard! We look forward to seeing you on {{JOINING_DATE}}.</strong></p>
+
+            <p>If you have any questions before your joining date, please feel free to reach out to our HR team.</p>
+
+            <p>Best regards,<br>
+            <strong>Human Resources Team</strong><br>
+            WinWire</p>
+        </div>
+
+        <div class="footer">
+            <p>This is an official document from WinWire. Please retain this letter for your records.</p>
+            <p>Confidential - For the addressee only</p>
+        </div>
+    </div>
+</body>
+</html>

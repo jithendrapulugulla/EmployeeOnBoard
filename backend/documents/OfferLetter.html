@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'Raleway', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 40px;
+            background-color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid #124B84;
+            padding: 40px;
+            background-color: #f9f9f9;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #124B84;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #124B84;
+            margin: 0;
+            font-size: 28px;
+        }
+        .header p {
+            color: #C74627;
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .date {
+            text-align: right;
+            margin-bottom: 20px;
+            color: #666;
+        }
+        .content h2 {
+            color: #124B84;
+            font-size: 18px;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #CED6E0;
+            padding-bottom: 8px;
+        }
+        .content p {
+            margin: 12px 0;
+            text-align: justify;
+        }
+        .highlight {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #C74627;
+            margin: 20px 0;
+        }
+        .terms {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .terms ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .terms li {
+            margin: 8px 0;
+        }
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+        }
+        .signature {
+            display: inline-block;
+            width: 48%;
+            text-align: center;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #ccc;
+            color: #666;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>OFFER LETTER</h1>
+            <p>WinWire Employee Onboarding System</p>
+        </div>
+
+        <div class="date">
+            <strong>Date:</strong> {{DATE}}
+        </div>
+
+        <div class="content">
+            <p><strong>{{CANDIDATE_NAME}}</strong></p>
+            <p>{{CANDIDATE_ADDRESS}}</p>
+
+            <p><strong>Subject: Offer of Employment</strong></p>
+
+            <p>Dear {{CANDIDATE_NAME}},</p>
+
+            <p>We are delighted to extend an offer of employment for the position of <strong>{{POSITION}}</strong> in the <strong>{{PRACTICE}}</strong> department at WinWire.</p>
+
+            <h2>Position Details</h2>
+            <div class="terms">
+                <ul>
+                    <li><strong>Position:</strong> {{POSITION}}</li>
+                    <li><strong>Department:</strong> {{PRACTICE}}</li>
+                    <li><strong>Location:</strong> {{LOCATION}}</li>
+                    <li><strong>Employment Type:</strong> Full-Time</li>
+                    <li><strong>Reporting To:</strong> {{REPORTING_MANAGER}}</li>
+                </ul>
+            </div>
+
+            <h2>Compensation Package</h2>
+            <div class="terms">
+                <ul>
+                    <li><strong>Annual Salary:</strong> {{SALARY}}</li>
+                    <li><strong>Performance Bonus:</strong> Based on company performance and individual contribution</li>
+                    <li><strong>Health Insurance:</strong> Comprehensive health insurance coverage</li>
+                    <li><strong>Retirement Plan:</strong> Employer-sponsored retirement benefits</li>
+                    <li><strong>Paid Time Off:</strong> As per company policy</li>
+                </ul>
+            </div>
+
+            <h2>Terms & Conditions</h2>
+            <div class="highlight">
+                <ul>
+                    <li>Offer validity: 7 days from the date of this letter</li>
+                    <li>Your employment is contingent upon completion of background verification and medical checkup</li>
+                    <li>You will be required to sign the employment agreement and adhere to company policies</li>
+                    <li>You must provide all original educational and professional documents during the joining process</li>
+                    <li>Your employment will be governed by the laws applicable in the jurisdiction where you will be working</li>
+                </ul>
+            </div>
+
+            <h2>Next Steps</h2>
+            <p>To accept this offer, please click the acceptance link provided in the email or respond to this letter within 7 days confirming your acceptance.</p>
+            
+            <p>Once you accept this offer, our HR team will contact you with:</p>
+            <ul>
+                <li>Joining date and time</li>
+                <li>Required documents to be submitted</li>
+                <li>Joining process and orientation schedule</li>
+                <li>Login credentials for the employee portal</li>
+            </ul>
+
+            <p>We are excited about the prospect of having you join our team and believe you will be a valuable addition to our organization.</p>
+
+            <p>If you have any questions regarding this offer, please don't hesitate to contact our HR department.</p>
+
+            <p>Best regards,</p>
+
+            <div class="signature-section">
+                <div class="signature">
+                    <p style="margin-bottom: 30px;">_______________________</p>
+                    <p><strong>HR Manager</strong><br>WinWire</p>
+                </div>
+                <div class="signature">
+                    <p style="margin-bottom: 30px;">_______________________</p>
+                    <p><strong>Candidate Name</strong><br>Date: _______________</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>This is an official document from WinWire. Please retain this letter for your records.</p>
+            <p>Confidential - For the addressee only</p>
+        </div>
+    </div>
+</body>
+</html>
