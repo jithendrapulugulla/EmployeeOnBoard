@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-// When served from backend (single app service), use relative API URL
-// When running separately, use environment variable or localhost
-const API_URL = process.env.REACT_APP_API_BASE_URL || process.env.REACT_APP_API_URL || '/api';
+// API URL configuration
+// For Azure: uses relative path /api (same domain)
+// For local dev: proxy in package.json redirects /api to localhost:5000
+// For other environments: use REACT_APP_API_BASE_URL env variable
+const API_URL = process.env.REACT_APP_API_BASE_URL || '/api';
 
 // Create axios instance
 const api = axios.create({

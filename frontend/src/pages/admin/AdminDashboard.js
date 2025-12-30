@@ -640,7 +640,7 @@ const ReviewModal = ({ request, onClose, onSuccess }) => {
   };
 
   const viewDocument = (filename) => {
-    window.open(`http://localhost:5000/uploads/${filename}`, '_blank');
+    window.open(`/uploads/${filename}`, '_blank');
   };
 
   return (
@@ -1008,7 +1008,7 @@ const ReviewModal = ({ request, onClose, onSuccess }) => {
             <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
               <div style={{ flex: '0 0 auto' }}>
                 <img 
-                  src={`http://localhost:5000/uploads/${request.profilePhoto}`} 
+                  src={`/uploads/${request.profilePhoto}`} 
                   alt="Profile" 
                   style={{ width: '120px', height: '120px', borderRadius: '50%', objectFit: 'cover', border: '3px solid #4CAF50', boxShadow: '0 2px 8px rgba(0,0,0,0.1)' }}
                 />
