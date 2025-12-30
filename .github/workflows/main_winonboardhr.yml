@@ -37,8 +37,8 @@ jobs:
         shell: bash
         run: |
           mkdir -p backend/public
-          rm -rf backend/public/*
           cp -r frontend/build/* backend/public/
+          ls -la backend/public/
 
       # Then build backend with frontend included
       - name: Install backend dependencies
@@ -49,6 +49,13 @@ jobs:
         working-directory: backend
         run: npm test --if-present
         continue-on-error: true
+
+      - name: Verify public folder exists
+        shell: bash
+        run: |
+          echo "Checking backend/public contents..."
+          ls -la backend/public/ || echo "backend/public not found!"
+          find backend/public -type f | head -20 || echo "No files found"
 
       - name: Upload app artifact
         uses: actions/upload-artifact@v4
