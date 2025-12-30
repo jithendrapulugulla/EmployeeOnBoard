@@ -1,0 +1,25 @@
+{
+  "$schema": "https://aka.ms/azure-app-service-linux-deploy-schema",
+  "id": "employee-onboarding-backend",
+  "name": "Employee Onboarding Backend",
+  "version": "1.0",
+  "serviceId": "employee-onboarding-backend",
+  "runtime": "node",
+  "runtimeVersion": "18-lts",
+  "startupCommand": "node server.js",
+  "environmentVariables": {
+    "NODE_ENV": "production",
+    "PORT": "8080"
+  },
+  "appSettings": {
+    "WEBSITES_ENABLE_APP_SERVICE_STORAGE": false,
+    "DOCKER_CUSTOM_IMAGE_NAME": "employee-onboarding-backend:latest"
+  },
+  "connectionStrings": [
+    {
+      "name": "MongoDBConnectionString",
+      "value": "mongodb+srv://[username]:[password]@[cluster].mongodb.net/employee-onboarding?retryWrites=true&w=majority",
+      "type": "MongoDB"
+    }
+  ]
+}
