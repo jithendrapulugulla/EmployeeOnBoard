@@ -32,6 +32,10 @@ jobs:
         working-directory: frontend
         run: npm run build
 
+      # Copy frontend build into backend
+      - name: Copy frontend build to backend
+        run: cp -r frontend/build backend/public
+
       # Then build backend with frontend included
       - name: Install backend dependencies
         working-directory: backend
@@ -46,9 +50,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app
-          path: |
-            backend/
-            frontend/build/
+          path: backend/
 
   deploy:
     runs-on: ubuntu-latest

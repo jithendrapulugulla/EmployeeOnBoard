@@ -39,8 +39,8 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 // Serve static files from uploads directory
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Serve React frontend as static files
-const frontendBuildPath = path.join(__dirname, '../frontend/build');
+// Serve React frontend as static files from public directory
+const frontendBuildPath = path.join(__dirname, 'public');
 app.use(express.static(frontendBuildPath));
 
 // Routes
