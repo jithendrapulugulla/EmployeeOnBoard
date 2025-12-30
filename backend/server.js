@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import connectDB from './config/db.js';
 import { errorHandler } from './middleware/errorMiddleware.js';
@@ -59,7 +60,17 @@ app.get('/health', (req, res) => {
 
 // SPA Fallback - must be AFTER all other routes
 app.get('*', (req, res) => {
-  res.sendFile(path.join(frontendBuildPath, 'index.html'));
+  const indexPath = path.join(frontendBuildPath, 'index.html');
+  // Check if file exists before serving
+  if (fs.existsSync(indexPath)) {
+    res.sendFile(indexPath);
+  } else {
+    res.status(404).json({ 
+      error: 'Frontend files not found',
+      path: frontendBuildPath,
+      hint: 'Make sure backend/public contains React build files'
+    });
+  }
 });
 
 // Error handling middleware
