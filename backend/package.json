@@ -8,7 +8,9 @@
     "start": "node server.js",
     "dev": "nodemon server.js",
     "seed": "node seed/seedAdmin.js",
-    "cleanup": "node seed/cleanupData.js"
+    "cleanup": "node seed/cleanupData.js",
+    "build": "cd ../frontend && npm run build",
+    "build:all": "npm run build && npm start"
   },
   "keywords": [
     "employee",
