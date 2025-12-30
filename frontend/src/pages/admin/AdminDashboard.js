@@ -12,9 +12,6 @@ const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('candidates');
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [showOfferModal, setShowOfferModal] = useState(false);
-  const [showJoiningModal, setShowJoiningModal] = useState(false);
-  const [selectedCandidate, setSelectedCandidate] = useState(null);
 
   useEffect(() => {
     fetchData();

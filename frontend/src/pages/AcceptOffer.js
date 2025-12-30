@@ -8,10 +8,6 @@ const AcceptOffer = () => {
   const [candidate, setCandidate] = useState(null);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    verifyOffer();
-  }, [token]);
-
   const verifyOffer = async () => {
     try {
       const response = await publicAPI.verifyOffer(token);
@@ -27,6 +23,10 @@ const AcceptOffer = () => {
       setError(err.response?.data?.message || 'Invalid or expired offer link');
     }
   };
+
+  useEffect(() => {
+    verifyOffer();
+  }, [token, verifyOffer]);
 
   const handleAcceptOffer = async () => {
     try {
