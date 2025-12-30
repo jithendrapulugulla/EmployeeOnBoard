@@ -32,9 +32,13 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      # Copy frontend build into backend
+      # Copy frontend build into backend public folder (Windows/Linux compatible)
       - name: Copy frontend build to backend
-        run: cp -r frontend/build backend/public
+        shell: bash
+        run: |
+          mkdir -p backend/public
+          rm -rf backend/public/*
+          cp -r frontend/build/* backend/public/
 
       # Then build backend with frontend included
       - name: Install backend dependencies
