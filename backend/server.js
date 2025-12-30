@@ -41,9 +41,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Serve React frontend as static files from public directory
 const frontendBuildPath = path.join(__dirname, 'public');
-app.use(express.static(frontendBuildPath));
+app.use(express.static(frontendBuildPath, {
+  maxAge: '1d',
+  etag: false
+}));
 
-// Routes
+// API Routes MUST come before SPA fallback
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/employee', employeeRoutes);
@@ -54,7 +57,7 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK', message: 'Server is running' });
 });
 
-// Serve React frontend for all non-API routes (SPA fallback)
+// SPA Fallback - must be AFTER all other routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(frontendBuildPath, 'index.html'));
 });
