@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { publicAPI } from '../services/api';
 
@@ -8,7 +8,7 @@ const AcceptOffer = () => {
   const [candidate, setCandidate] = useState(null);
   const [error, setError] = useState('');
 
-  const verifyOffer = async () => {
+  const verifyOffer = useCallback(async () => {
     try {
       const response = await publicAPI.verifyOffer(token);
       setCandidate(response.data.candidate);
@@ -22,7 +22,7 @@ const AcceptOffer = () => {
       setStatus('error');
       setError(err.response?.data?.message || 'Invalid or expired offer link');
     }
-  };
+  }, [token]);
 
   useEffect(() => {
     verifyOffer();
